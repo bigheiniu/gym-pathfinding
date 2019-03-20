@@ -231,7 +231,8 @@ def build_sign(action_planning, path, distance):
 
     return result, sign_path
 
-def sign2grid(grid, start, goal, distance_sign=1):
+#add the sign on the road
+def sign2grid(grid, start, goal, distance_sign=3):
     path, action_planning = compute_action_planning(grid, start, goal)
     sign_list, path = build_sign(action_planning, path, distance_sign)
     grid[start[0], start[1]] = -2
