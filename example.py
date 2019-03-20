@@ -8,7 +8,7 @@ env.seed(1) # for full-deterministic environment
 for episode in range(5):
     s = env.reset()
     
-    for timestep in range(20):
+    for timestep in range(200):
         env.render()
         sleep(0.05)
         

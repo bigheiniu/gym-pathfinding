@@ -194,7 +194,7 @@ GOAL_VALUE = 3
 '''
 
 
-def build_sign(action_planning):
+def build_sign(action_planning, path, distance):
     '''
     random put a direction sign at the observation area when change direction
     :param action_planning:
@@ -202,13 +202,16 @@ def build_sign(action_planning):
     '''
     space = [0]
     action_wanted = [action_planning[0]]
-    result = np.zeros(len(action_planning), dtype=np.int)
+    # result = np.zeros(len(action_planning), dtype=np.int)
+    result = []
     for i in range(len(action_planning) - 1):
         if action_planning[i] != action_planning[i + 1]:
             space.append(i + 1)
             action_wanted.append(action_planning[i + 1])
+    sign_path = []
     for i in range(len(space) - 1):
-        index = np.random.randint(low=space[i], high=space[i + 1], size=1)
+        value = min(space[i+1] - space[i], distance) + space[i]
+        index = np.random.randint(low=space[i], high=value, size=1)[0]
         # 5 left turn
         # 6 right turn
         # action: 0 -> up, 1 -> down, 2 -> left, 3 -> right
@@ -218,26 +221,30 @@ def build_sign(action_planning):
         if ((action_cur == 2 and action_next == 1) or (action_cur == 1 and action_next == 3) or (
                 action_cur == 3 and action_next == 0) or (action_cur == 0 and action_next == 2)):
             # make left turn
-            result[index] = 5
+            result.append(5)
+            sign_path.append(path[index])
         else:
             # make right turn
-            result[index] = 6
-    return result
+            result.append(6)
+            sign_path.append(path[index])
 
-def sign2grid(grid, start, goal, distance_sign=5):
+
+    return result, sign_path
+
+def sign2grid(grid, start, goal, distance_sign=1):
     path, action_planning = compute_action_planning(grid, start, goal)
-    sign_list = build_sign(action_planning)
-    timestep = 0
-    while (timestep < len(action_planning)):
-        position = path[timestep]
-        sign = sign_list[timestep]
-        _partial_grid = partial_grid(grid, position, distance_sign)
-        if sign != 0:
-            # 2 up, 3 down, 4 left, 5 right
-            pos_loc = np.argwhere(_partial_grid == 1)
-            np.random.shuffle(pos_loc)
-            x = pos_loc[0][0]
-            y = pos_loc[0][1]
-            grid[x, y] = sign
-        timestep += 1
+    sign_list, path = build_sign(action_planning, path, distance_sign)
+    grid[start[0], start[1]] = -2
+    grid[goal[1], goal[1]] = 4
+    for index in range(len(sign_list)):
+        location = path[index]
+        x = location[0]
+        y = location[1]
+        if x == start[0] and y == start[1]:
+            grid[x, y] = 7
+        else:
+            direction = sign_list[index]
+            grid[x,y] = direction
+
     return grid
+

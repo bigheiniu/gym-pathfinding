@@ -65,7 +65,7 @@ def build_sign(action_planning):
             result[index] = 6
     return result
 
-def sign2grid(grid, start, goal, distance_sign=5):
+def sign2grid(grid, start, goal, distance_sign=1):
     path, action_planning = compute_action_planning(grid, start, goal)
     sign_list = build_sign(action_planning)
     timestep = 0
