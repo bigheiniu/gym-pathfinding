@@ -9,7 +9,6 @@ from gym_pathfinding.envs.pathfinding_env import PathFindingEnv
 class PartiallyObservablePathFindingEnv(gym.Env):
     """ PartiallyObservableEnv
         -1 = unknown
-        Add sign to the maze
     """
 
     def __init__(self, lines, columns, observable_depth, *, grid_type="free", screen_size=(640, 640)):

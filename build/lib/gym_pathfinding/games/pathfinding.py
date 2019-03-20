@@ -15,7 +15,6 @@ class PathFindingGame(object):
         1 = wall
         2 = player
         3 = goal
-
     """
 
     def __init__(self, lines=15, columns=15, *, grid_type="free"):
