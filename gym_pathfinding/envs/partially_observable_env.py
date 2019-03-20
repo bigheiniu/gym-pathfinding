@@ -12,7 +12,7 @@ class PartiallyObservablePathFindingEnv(gym.Env):
         Add sign to the maze
     """
 
-    def __init__(self, lines, columns, observable_depth, *, grid_type="free", screen_size=(640, 640)):
+    def __init__(self, lines, columns, observable_depth, grid_type="free", screen_size=(640, 640)):
         self.env = PathFindingEnv(lines, columns, 
             grid_type=grid_type, 
             screen_size=screen_size
@@ -62,7 +62,7 @@ def partial_grid(grid, center, observable_depth):
     _grid[mask] = -1
     return _grid
 
-def create_partially_observable_pathfinding_env(id, name, lines, columns, observable_depth, *, grid_type="free"):
+def create_partially_observable_pathfinding_env(id, name, lines, columns, observable_depth, grid_type="free"):
 
     def constructor(self):
         PartiallyObservablePathFindingEnv.__init__(self, lines, columns, observable_depth, grid_type=grid_type)

@@ -2,7 +2,7 @@ import gym
 import gym_pathfinding
 from time import sleep
 
-env = gym.make('partially-observable-pathfinding-free-9x9-d3-v0')
+env = gym.make('partially-observable-pathfinding-maze-25x25-d3-v0')
 env.seed(1) # for full-deterministic environment
 
 for episode in range(5):

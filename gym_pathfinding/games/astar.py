@@ -3,8 +3,9 @@
 
 import numpy
 from heapq import heappush, heappop
-from gym_pathfinding.games.gridworld import MOUVEMENT
 
+
+MOUVEMENT = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 def heuristic(a, b):
     return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
 

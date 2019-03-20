@@ -10,7 +10,7 @@ from gym_pathfinding.rendering import GridViewer
 class PathFindingEnv(gym.Env):
     metadata = {'render.modes': ['human', 'array']}
 
-    def __init__(self, lines, columns, *, grid_type="free", screen_size=(640, 640)):
+    def __init__(self, lines, columns, grid_type="free", screen_size=(640, 640)):
         self.game = PathFindingGame(lines, columns, grid_type=grid_type)
         self.game.reset()
         

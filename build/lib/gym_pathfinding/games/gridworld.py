@@ -1,7 +1,8 @@
 import random
 import numpy as np
+# from gym_pathfinding.games.Util import sign2grid
 
-def generate_grid(shape, *, grid_type="free", generation_seed=None, spawn_seed=None):
+def generate_grid(shape, grid_type="free", generation_seed=None, spawn_seed=None):
     """ 
     Generate a grid
 
@@ -17,6 +18,7 @@ def generate_grid(shape, *, grid_type="free", generation_seed=None, spawn_seed=N
             start, goal = spawn_start_goal(grid, spawn_seed=spawn_seed)
 
             if path_exists(grid, start, goal):
+                # grid = sign2grid(grid, start, goal)
                 return grid, start, goal
 
     grid = {
@@ -25,7 +27,8 @@ def generate_grid(shape, *, grid_type="free", generation_seed=None, spawn_seed=N
     }[grid_type]
 
     start, goal = spawn_start_goal(grid, spawn_seed=spawn_seed)
-
+    # ATTENTION: add sign to the wall
+    # grid = sign2grid(grid, start, goal)
     return grid, start, goal
 
 def spawn_start_goal(grid, spawn_seed=None):
